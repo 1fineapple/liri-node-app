@@ -29,8 +29,16 @@ var finder = process.argv[2];
       console.log(data);
       var dataArr = data.split(",");
       console.log(dataArr);
-      thirdArg = dataArr[0];
-      spotify(thirdArg);  
+      thirdArg = dataArr[1];
+      if (dataArr[0]=== "spotify-this-song") {
+        spotify();
+      }
+      else if (dataArr[0]=== "concert-this"){
+        bandsIntown();
+      }
+      else if (dataArr[0]=== "movie-this"){
+        imdbCredentials();
+      }
 
     });
   }
@@ -39,10 +47,9 @@ var finder = process.argv[2];
 
 
 // The finder for the spotify api    
-function spotify(thirdArg) {
+function spotify() {
   var spotifyAPI = new Spotify(keys.spotify);
 
-  thirdArg = "";
 
     if(process.argv.length >= 4){
       thirdArg = process.argv[3];
@@ -65,6 +72,7 @@ function spotify(thirdArg) {
 // The finder for Bands in Town 
  
 function bandsIntown(){
+  console.log("inside bandintown" + thirdArg);
   axios.get("https://rest.bandsintown.com/artists/" + thirdArg + "/events?app_id=codingbootcamp").then(
     function(bandsResponse) {
       console.log(bandsResponse.data[0].venue.name);
